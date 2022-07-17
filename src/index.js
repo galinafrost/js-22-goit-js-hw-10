@@ -18,7 +18,11 @@ function clear () {
   }
 
 const onSearchInput = event => {
-    const cityName = searchBtnEl.value;
+    const cityName = searchBtnEl.value.trim();
+    if (cityName === '') {
+        clear()
+        return
+    }
     fetchCountries(cityName).then(data => {
         if (data.length === 1) {
             clear()
@@ -32,8 +36,6 @@ const onSearchInput = event => {
             clear()
             Notiflix.Notify.warning('Too many matches found. Please enter a more specific name.');
         }
-    
-
     })
     .catch(err => {
       Notiflix.Notify.failure('Oops, there is no country with that nam');
